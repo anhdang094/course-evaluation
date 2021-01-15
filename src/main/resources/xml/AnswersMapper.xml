@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="thanhtuu.springmvc.Dao.AnswersMapper">
+  <resultMap id="BaseResultMap" type="thanhtuu.springmvc.Domain.Answers">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="questionBlockId" jdbcType="INTEGER" property="questionblockid" />
+    <id column="questionId" jdbcType="INTEGER" property="questionid" />
+    <result column="isSolution" jdbcType="BIT" property="issolution" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="thanhtuu.springmvc.Domain.Answers">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, questionBlockId, questionId, isSolution
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.AnswersKey" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from answers
+    where id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+      and questionId = #{questionid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.AnswersKey">
+    delete from answers
+    where id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+      and questionId = #{questionid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="thanhtuu.springmvc.Domain.Answers">
+    insert into answers (id, questionBlockId, questionId, 
+      isSolution, content)
+    values (#{id,jdbcType=INTEGER}, #{questionblockid,jdbcType=INTEGER}, #{questionid,jdbcType=INTEGER}, 
+      #{issolution,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="thanhtuu.springmvc.Domain.Answers">
+    insert into answers
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="questionblockid != null">
+        questionBlockId,
+      </if>
+      <if test="questionid != null">
+        questionId,
+      </if>
+      <if test="issolution != null">
+        isSolution,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="questionblockid != null">
+        #{questionblockid,jdbcType=INTEGER},
+      </if>
+      <if test="questionid != null">
+        #{questionid,jdbcType=INTEGER},
+      </if>
+      <if test="issolution != null">
+        #{issolution,jdbcType=BIT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="thanhtuu.springmvc.Domain.Answers">
+    update answers
+    <set>
+      <if test="issolution != null">
+        isSolution = #{issolution,jdbcType=BIT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+      and questionId = #{questionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="thanhtuu.springmvc.Domain.Answers">
+    update answers
+    set isSolution = #{issolution,jdbcType=BIT},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+      and questionId = #{questionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Answers">
+    update answers
+    set isSolution = #{issolution,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+      and questionId = #{questionid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getAnswerByQuestionIdList" parameterType="list" resultMap="ResultMapWithBLOBs">
+  	select
+  	<include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+	from answers
+	where questionId in
+	<foreach close=")" collection="list" item="item" open="(" separator=",">
+        #{item}
+    </foreach>
+  </select>
+  
+  <select id="getSoulutionAnswerCountByIdInList" parameterType="list" resultType="long">
+  	select count(*)
+	from answers
+	where isSolution = 1 and id in
+	<foreach close=")" collection="list" item="item" open="(" separator=",">
+        #{item}
+    </foreach>
+  </select>
+  
+  
+  
+  <select id="getAnswerByIDAnswer" parameterType="long" resultMap="ResultMapWithBLOBs">
+select
+  	<include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+	from answers
+	where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="getMaxIdAnswer" resultMap="ResultMapWithBLOBs">
+     select 
+     <include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+	from answers
+      where id = (
+      select max(id) from answers
+      );
+      
+  </select>
+  
+   <select id="answerListByQuestionId" parameterType="long" resultMap="ResultMapWithBLOBs">
+select
+  	<include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+	from answers
+	where questionId = #{questionId,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

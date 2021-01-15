@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/jee
+    	http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
+	
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+	    <property name="jndiName" value="java:comp/env/jdbc/db_evaluation2" />
+	    <property name="resourceRef" value="true"></property>
+	    <property name="proxyInterface" value="javax.sql.DataSource" />
+	    <property name="lookupOnStartup" value="true" />
+	</bean>
+	
+	<bean id="UsersService" class="thanhtuu.springmvc.Service.UsersService" />
+	<bean id="AdminService" class="thanhtuu.springmvc.Service.AdminService" />
+	<bean id="SubjectsService" class="thanhtuu.springmvc.Service.SubjectsService" />
+	<bean id="SubjectService" class="thanhtuu.springmvc.Service.SubjectService" />
+	<bean id="QuestionService" class="thanhtuu.springmvc.Service.QuestionService" />
+	<bean id="TeacherService" class="thanhtuu.springmvc.Service.TeacherService" />
+    <bean id="ExamsService" class="thanhtuu.springmvc.Service.ExamsService" />
+    <bean id="StudentService" class="thanhtuu.springmvc.Service.StudentService" />
+    <bean id="ExamService" class="thanhtuu.springmvc.Service.ExamService" />
+    <bean id="ClassService" class="thanhtuu.springmvc.Service.ClassService" />
+    <bean id="CheckService" class="thanhtuu.springmvc.Service.CheckService" />
+    <bean id="ViewStoresExamService" class="thanhtuu.springmvc.Service.ViewStoresExamService" />
+    
+   </beans>

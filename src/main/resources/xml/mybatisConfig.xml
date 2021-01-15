@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+     
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="MANAGED">
+                <property name="closeConnection" value="true" />
+            </transactionManager>
+            <dataSource type="JNDI">
+                <property name="data_source" value="java:comp/env/jdbc/db_evaluation2" />
+            </dataSource>
+        </environment>
+    </environments>
+       
+    <mappers>
+        <mapper resource="xml/AdminMapper.xml"/>
+        <mapper resource="xml/AnswersMapper.xml"/>
+        <mapper resource="xml/UsersMapper.xml"/>
+        <mapper resource="xml/ChapterMapper.xml"/>
+        <mapper resource="xml/ExamMapper.xml"/>
+        <mapper resource="xml/ExamsMapper.xml"/>
+        <mapper resource="xml/TeacherMapper.xml"/>
+        <mapper resource="xml/SubjectMapper.xml"/>
+        <mapper resource="xml/Super_Teacher_SubjectMapper.xml"/>
+        <mapper resource="xml/StudentMapper.xml"/>
+        <mapper resource="xml/Teacher_SubjectMapper.xml"/>
+       	<mapper resource="xml/Exams_ChapterMapper.xml"/>
+       	<mapper resource="xml/Exam_Question_BlockMapper.xml"/>
+       	<mapper resource="xml/Question_BlocksMapper.xml"/>
+       	<mapper resource="xml/QuestionsMapper.xml"/>
+       	<mapper resource="xml/ClassesMapper.xml"/>
+       	<mapper resource="xml/Class_MemberMapper.xml"/>
+       	<mapper resource="xml/Student_SubjectMapper.xml"/>    	
+       	<mapper resource="xml/Student_ExamMapper.xml"/>
+       	<mapper resource="xml/Classes_ExamsMapper.xml"/>
+       	<mapper resource="xml/TestMapper.xml"/>
+       	<mapper resource="xml/Questions_TargetMapper.xml"/>
+       	<mapper resource="xml/TargetMapper.xml"/>
+       	<mapper resource="xml/Exams_TargetMapper.xml"/>
+       	<mapper resource="xml/Exams_InfoMapper.xml"/>
+       	<mapper resource="xml/Exam_QuestionMapper.xml"/>
+       	<mapper resource="xml/Exam_AnswerMapper.xml"/>
+       	<mapper resource="xml/NotificationMapper.xml"/>
+    </mappers>
+</configuration>

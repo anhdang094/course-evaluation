@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:security="http://www.springframework.org/schema/security" 
+		xsi:schemaLocation="http://www.springframework.org/schema/beans       
+					http://www.springframework.org/schema/beans/spring-beans.xsd       
+					http://www.springframework.org/schema/security       
+					http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+		<!--Check for all user-->
+	     <security:http auto-config="true" use-expressions="true">
+	     <security:intercept-url pattern="/logout" access="isAnonymous()" />
+		 <security:intercept-url pattern="/login" access="permitAll" />
+		 <security:intercept-url pattern="/home" access="permitAll"/>
+		 <!--Check for only teacher-->
+		 <security:intercept-url pattern="/create-exams" access="hasRole('teacher')"/>
+		 <security:intercept-url pattern="/create-question" access="hasRole('teacher')"/>
+		 <security:intercept-url pattern="/statistical" access="hasRole('teacher')"/>
+		 <security:intercept-url pattern="/evaluation" access="hasRole('teacher')"/>
+		 <!--Check for only student-->
+		 <security:intercept-url pattern="/score" access="hasRole('student')"/>
+		 <security:intercept-url pattern="/discussion" access="hasRole('student')"/>
+		 <!--Check for only admin-->
+ 	     <security:intercept-url pattern="/admin/**" access="hasRole('admin')"/>
+		 <security:intercept-url pattern="/profile/**" access="hasRole('admin')"/>
+		 
+		 <security:form-login login-page="/login"
+		                     authentication-failure-url="/login?authfailed=true"		 
+                             default-target-url="/home" />
+		<security:logout invalidate-session="true" logout-success-url="/login?loggedout=true" logout-url="/logout"/>
+	</security:http>
+	
+    <security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider>
+			<security:password-encoder hash="md5"/>
+			<security:jdbc-user-service 
+				data-source-ref="dataSource" 
+				users-by-username-query="select u.email, u.passWord, u.isActive as ENABLED
+				 from users u where UPPER(u.email) = UPPER(?)" 
+				authorities-by-username-query=
+						"select u.email, u.role as authority
+						from users u
+						where UPPER(u.email) = UPPER(?)"					
+			/>
+			
+		</security:authentication-provider>
+	</security:authentication-manager> 
+
+</beans>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="mysql-connector-java-5.1.15-bin.jar" />
+
+    <context id="MysqlTables" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://localhost:3306/db_evaluation2" userId="root" password="1234">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="thanhtuu.springmvc.Domain"
+            targetProject="../java" />
+
+        <sqlMapGenerator targetPackage="thanhtuu.springmvc.Dao.xml"
+            targetProject="../java" />
+
+        <javaClientGenerator type="XMLMAPPER"
+            targetPackage="thanhtuu.springmvc.Dao" targetProject="../java" />
+
+        <!--Users Table -->
+		<table tableName="users" domainObjectName="Users"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+
+        <!--Admin Table -->
+        <table tableName="admin" domainObjectName="Admin"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+
+        <!--Teacher Table -->
+		<table tableName="teacher" domainObjectName="Teacher"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+
+        <!--Student Table -->
+		<table tableName="student" domainObjectName="Student"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+
+        <!--Subject Table -->
+		<table tableName="subject" domainObjectName="Subject"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+
+        <!--Teacher Subject Table -->
+        <table tableName="teacher_subject" domainObjectName="Teacher_Subject"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="subjectId" javaType="Long" />
+        </table>
+
+        <!--Super Teacher Subject Table -->
+        <table tableName="super_teacher_subject" domainObjectName="Super_Teacher_Subject"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="subjectId" javaType="Long" />
+        </table>
+
+        <!--Student Subject Table -->
+		<table tableName="student_subject" domainObjectName="Student_Subject"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="subjectId" javaType="Long" />
+        </table>
+
+        <!--Answers Table -->
+		<table tableName="answers" domainObjectName="Answers"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+
+        <!--Answers Table -->
+		<table tableName="block_questions_chapters" domainObjectName="Block_Questions_Chapters"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="questionBlockId" javaType="Long" />
+        </table>
+
+		<!--Chapters Table -->
+		<table tableName="chapter" domainObjectName="Chapter"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+
+		<!--exam Table -->
+		 <table tableName="exam" domainObjectName="Exam"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+
+		<!--exams Table -->
+		<table tableName="exams" domainObjectName="Exams"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+
+        <!--exams Table -->
+		<table tableName="exams_chapter" domainObjectName="Exams_Chapter"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="examsId" javaType="Long" />
+        </table>
+
+        <!--exams Table -->
+		<table tableName="exam_question_block" domainObjectName="Exam_Question_Block"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="examId" javaType="Long" />
+        </table>
+
+        <!--questions Table -->
+		<table tableName="questions" domainObjectName="Questions"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+
+        <!--questions_target Table-->
+		<table tableName="questions_target" domainObjectName="Questions_Target"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="questionId" javaType="Long" />
+        </table>
+
+		<!--Question_Blocks Table -->
+		<table tableName="question_blocks" domainObjectName="Question_Blocks"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+
+        <!--see Table -->
+		<table tableName="see" domainObjectName="See"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="teacherId" javaType="Long" />
+        </table>
+
+        <!--target Table -->
+		<table tableName="target" domainObjectName="Target"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+
+
+        <!--class Table -->
+		<table tableName="classes" domainObjectName="Classes"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+
+        <!--class Table -->
+		<table tableName="class_member" domainObjectName="Class_Member"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="studentId" javaType="Long" />
+        </table>
+
+        <!--28/9/2016  -->
+        <!--class exams Table -->
+		<table tableName="classes_exams" domainObjectName="Classes_Exams"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="classId" javaType="Long" />
+        </table>
+
+        <!--class exams Table -->
+		<table tableName="student_exam" domainObjectName="Student_Exam"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />         
+        </table>
+
+        <!--test Table -->
+		<table tableName="test" domainObjectName="Test"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+        
+         <!--test Table -->
+		<table tableName="exams_info" domainObjectName="Exams_Info"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+        
+        <table tableName="exam_question" domainObjectName="Exam_Question"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+        
+        <table tableName="exam_answer" domainObjectName="Exam_Answer"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+        
+        <table tableName="notification" domainObjectName="Notification"
+            enableSelectByExample="false" enableDeleteByExample="false"
+            enableCountByExample="false" enableUpdateByExample="false" >
+            <columnOverride column="Id" javaType="Long" />
+        </table>
+       
+    </context>
+</generatorConfiguration>

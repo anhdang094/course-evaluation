@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="thanhtuu.springmvc.Dao.ChapterMapper" >
+  <resultMap id="BaseResultMap" type="thanhtuu.springmvc.Domain.Chapter" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="subjectId" property="subjectid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="teacherId" property="teacherid" jdbcType="INTEGER" />
+    <result column="isActive" property="isactive" jdbcType="BOOLEAN" />
+    <result column="modifiedAt" property="modifiedat" jdbcType="DATE" />
+    <result column="createdAt" property="createdat" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, subjectId, name, teacherId, modifiedAt, createdAt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="thanhtuu.springmvc.Domain.ChapterKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from chapter
+    where id = #{id,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.ChapterKey" >
+    delete from chapter
+    where id = #{id,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="thanhtuu.springmvc.Domain.Chapter" >
+    insert into chapter (id, subjectId, name, 
+      teacherId, isActive, modifiedAt, createdAt
+      )
+    values (#{id,jdbcType=INTEGER}, #{subjectid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{teacherid,jdbcType=INTEGER}, #{isactive,jdbcType=BOOLEAN}, #{modifiedat,jdbcType=DATE}, #{createdat,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="thanhtuu.springmvc.Domain.Chapter" >
+    insert into chapter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="subjectid != null" >
+        subjectId,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="teacherid != null" >
+        teacherId,
+      </if>
+      <if test="isactive != null" >
+        isActive,
+      </if>
+      <if test="modifiedat != null" >
+        modifiedAt,
+      </if>
+      <if test="createdat != null" >
+        createdAt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null" >
+        #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherid != null" >
+        #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=BOOLEAN},
+      </if>
+      <if test="modifiedat != null" >
+        #{modifiedat,jdbcType=DATE},
+      </if>
+      <if test="createdat != null" >
+        #{createdat,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="thanhtuu.springmvc.Domain.Chapter" >
+    update chapter
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherid != null" >
+        teacherId = #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="isactive != null" >
+        isActive = #{isactive,jdbcType=BOOLEAN},
+      </if>
+      <if test="modifiedat != null" >
+        modifiedAt = #{modifiedat,jdbcType=DATE},
+      </if>
+      <if test="createdat != null" >
+        createdAt = #{createdat,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Chapter" >
+    update chapter
+    set name = #{name,jdbcType=VARCHAR},
+      teacherId = #{teacherid,jdbcType=INTEGER},
+      isActive = #{isactive,jdbcType=BOOLEAN},
+      modifiedAt = #{modifiedat,jdbcType=DATE},
+      createdAt = #{createdat,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getAllChapterBySubjectId" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from chapter
+    where subjectId = #{subjectId,jdbcType=INTEGER}
+    and isActive = true;
+  </select>
+</mapper>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="thanhtuu.springmvc.Dao.TargetMapper">
+  <resultMap id="BaseResultMap" type="thanhtuu.springmvc.Domain.Target">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="subjectId" jdbcType="INTEGER" property="subjectid" />
+    <id column="chapterId" jdbcType="INTEGER" property="chapterid" />
+    <result column="isActive" jdbcType="BOOLEAN" property="isactive" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="thanhtuu.springmvc.Domain.Target">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, subjectId, chapterId
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.TargetKey" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from target
+    where id = #{id,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+      and chapterId = #{chapterid,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.TargetKey">
+    delete from target
+    where id = #{id,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+      and chapterId = #{chapterid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="thanhtuu.springmvc.Domain.Target">
+    insert into target (id, subjectId, chapterId, content, isActive
+      )
+    values (#{id,jdbcType=INTEGER}, #{subjectid,jdbcType=INTEGER}, chapterId = #{chapterid,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}, #{isActive,jdbcType=BOOLEAN}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="thanhtuu.springmvc.Domain.Target">
+    insert into target
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="subjectid != null">
+        subjectId,
+      </if>
+      <if test="chapterid != null">
+        chapterId,
+      </if>
+      <if test="isactive != null">
+        isActive,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null">
+        #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="chapterid != null">
+        #{chapterid,jdbcType=INTEGER},
+      </if>
+      <if test="isactive != null">
+        #{isactive,jdbcType=BOOLEAN},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="thanhtuu.springmvc.Domain.Target">
+    update target
+    <set>
+      <if test="isactive != null">
+        isActive = #{isactive,jdbcType=BOOLEAN},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+      and chapterId = #{chapterid,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="thanhtuu.springmvc.Domain.Target">
+    update target
+    set content = #{content,jdbcType=LONGVARCHAR},
+    isActive = #{isactive,jdbcType=BOOLEAN}
+    where id = #{id,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+      and chapterId = #{chapterid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getBySubjectId" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from target
+    where subjectId = #{subjectId,jdbcType=INTEGER}
+    and isActive = true;
+  </select>
+  
+  <select id="getBySubjectIdChapterId" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from target
+    where subjectId = #{subjectId,jdbcType=INTEGER}
+    and chapterId = #{chapterId,jdbcType=INTEGER}
+    and isActive = true;
+  </select>
+ 
+   <select id="getIdTarget" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from target
+    where id = #{Id,jdbcType=INTEGER};
+  </select>
+</mapper>

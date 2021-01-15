@@ -1,0 +1,40 @@
+#admin-page .admin-left-menu ul {
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+#admin-page .admin-left-menu li {
+	margin-bottom: 10px;
+	background-color: #ffffff;
+	border-radius: 4px;
+	box-shadow: 2px 2px 0px #999999;
+}
+
+#admin-page .admin-left-menu li a {
+	display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+#admin-page .admin-left-menu li:hover, #admin-page .admin-left-menu .active{
+    background-color: #f2f2f2;
+    color: white;
+}
+
+#admin-page .admin-right-content .admin-item {
+	display: none
+}
+
+#admin-page .admin-right-content {
+	display: block;
+	background-color: #ffffff;
+	border-radius: 4px;
+	box-shadow: 2px 2px 0px #999999;
+}
+
+#admin-page .admin-right-content .active{
+	display: block
+}

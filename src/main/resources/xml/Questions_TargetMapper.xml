@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="thanhtuu.springmvc.Dao.Questions_TargetMapper">
+  <resultMap id="BaseResultMap" type="thanhtuu.springmvc.Domain.Questions_TargetKey">
+    <id column="questionBlockId" jdbcType="INTEGER" property="questionblockid" />
+    <id column="questionId" jdbcType="INTEGER" property="questionid" />
+    <id column="subjectId" jdbcType="INTEGER" property="subjectid" />
+    <id column="chapterId" jdbcType="INTEGER" property="chapterid" />
+    <id column="targetId" jdbcType="INTEGER" property="targetid" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    questionId, questionBlockId, subjectId, chapterId, targetId
+  </sql>
+  
+  <delete id="deleteByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Questions_TargetKey">
+    delete from questions_target
+    where questionBlockId = #{questionblockid,jdbcType=INTEGER}
+      and questionId = #{questionid,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+      and chapterId = #{chapterid,jdbcType=INTEGER}
+      and targetId = #{targetid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="thanhtuu.springmvc.Domain.Questions_TargetKey">
+    insert into questions_target (questionBlockId, questionId, subjectId, chapterId,
+      targetId)
+    values (#{questionblockid,jdbcType=INTEGER}, #{questionid,jdbcType=INTEGER}, #{subjectid,jdbcType=INTEGER}, 
+     #{chapterid,jdbcType=INTEGER}, #{targetid,jdbcType=INTEGER})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="thanhtuu.springmvc.Domain.Questions_TargetKey">
+    insert into questions_target
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="questionblockid != null">
+        questionBlockId,
+      </if>
+      <if test="questionid != null">
+        questionId,
+      </if>
+      <if test="subjectid != null">
+        subjectId,
+      </if>
+      <if test="chapterid != null">
+        chapterId,
+      </if>
+      <if test="targetid != null">
+        targetId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="questionblockid != null">
+        #{questionblockid,jdbcType=INTEGER},
+      </if>
+      <if test="questionid != null">
+        #{questionid,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null">
+        #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="chapterid != null">
+        #{chapterid,jdbcType=INTEGER},
+      </if>
+      <if test="targetid != null">
+        #{targetid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="getBySubjectIdChapterIdTargetId" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+	from questions_target
+	where subjectId = #{subjectId,jdbcType=INTEGER}
+	and chapterId = #{chapterId,jdbcType=INTEGER}
+	and targetId = #{targetId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getByQuestionIdList" parameterType="list" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+	from questions_target
+	where questionId in
+	<foreach close=")" collection="list" item="item" open="(" separator=",">
+        #{item}
+    </foreach>
+  </select>
+</mapper>

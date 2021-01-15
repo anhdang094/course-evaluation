@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="thanhtuu.springmvc.Dao.TestMapper">
+  <resultMap id="BaseResultMap" type="thanhtuu.springmvc.Domain.Test">
+    <id column="examId" jdbcType="INTEGER" property="examid" />
+    <id column="examsId" jdbcType="INTEGER" property="examsid" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="questionBlockId" jdbcType="INTEGER" property="questionblockid" />
+    <id column="questionId" jdbcType="INTEGER" property="questionid" />
+    <result column="answerId" jdbcType="INTEGER" property="answerid" />
+    <result column="modifiedAt" jdbcType="DATE" property="modifiedat" />
+    <result column="createdAt" jdbcType="DATE" property="createdat" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    examId, examsId, id, questionBlockId, questionId, answerId, modifiedAt, createdAt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.TestKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from test
+    where examId = #{examid,jdbcType=INTEGER}
+      and examsId = #{examsid,jdbcType=INTEGER}
+      and id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+      and questionId = #{questionid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.TestKey">
+    delete from test
+    where examId = #{examid,jdbcType=INTEGER}
+      and examsId = #{examsid,jdbcType=INTEGER}
+      and id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+      and questionId = #{questionid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="thanhtuu.springmvc.Domain.Test">
+    insert into test (examId, examsId, id, 
+      questionBlockId, questionId, answerId, 
+      modifiedAt, createdAt)
+    values (#{examid,jdbcType=INTEGER}, #{examsid,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, 
+      #{questionblockid,jdbcType=INTEGER}, #{questionid,jdbcType=INTEGER}, #{answerid,jdbcType=INTEGER}, 
+      #{modifiedat,jdbcType=DATE}, #{createdat,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="thanhtuu.springmvc.Domain.Test">
+    insert into test
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examid != null">
+        examId,
+      </if>
+      <if test="examsid != null">
+        examsId,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="questionblockid != null">
+        questionBlockId,
+      </if>
+      <if test="questionid != null">
+        questionId,
+      </if>
+      <if test="answerid != null">
+        answerId,
+      </if>
+      <if test="modifiedat != null">
+        modifiedAt,
+      </if>
+      <if test="createdat != null">
+        createdAt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examid != null">
+        #{examid,jdbcType=INTEGER},
+      </if>
+      <if test="examsid != null">
+        #{examsid,jdbcType=INTEGER},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="questionblockid != null">
+        #{questionblockid,jdbcType=INTEGER},
+      </if>
+      <if test="questionid != null">
+        #{questionid,jdbcType=INTEGER},
+      </if>
+      <if test="answerid != null">
+        #{answerid,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedat != null">
+        #{modifiedat,jdbcType=DATE},
+      </if>
+      <if test="createdat != null">
+        #{createdat,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="thanhtuu.springmvc.Domain.Test">
+    update test
+    <set>
+      <if test="answerid != null">
+        answerId = #{answerid,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedat != null">
+        modifiedAt = #{modifiedat,jdbcType=DATE},
+      </if>
+      <if test="createdat != null">
+        createdAt = #{createdat,jdbcType=DATE},
+      </if>
+    </set>
+    where examId = #{examid,jdbcType=INTEGER}
+      and examsId = #{examsid,jdbcType=INTEGER}
+      and id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+      and questionId = #{questionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Test">
+    update test
+    set answerId = #{answerid,jdbcType=INTEGER},
+      modifiedAt = #{modifiedat,jdbcType=DATE},
+      createdAt = #{createdat,jdbcType=DATE}
+    where examId = #{examid,jdbcType=INTEGER}
+      and examsId = #{examsid,jdbcType=INTEGER}
+      and id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+      and questionId = #{questionid,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="insertList" parameterType="java.util.List">
+  	insert all 
+	  	<foreach collection="list" item="element" index="index" >
+		into test (examId, examsId, id, 
+	      questionBlockId, questionId, answerId, 
+	      modifiedAt, createdAt)
+	      values (#{element.examid,jdbcType=INTEGER}, #{element.examsid,jdbcType=INTEGER}, #{element.id,jdbcType=INTEGER}, 
+	      #{element.questionblockid,jdbcType=INTEGER}, #{element.questionid,jdbcType=INTEGER}, #{element.answerid,jdbcType=INTEGER}, 
+	      #{element.modifiedat,jdbcType=DATE}, #{element.createdat,jdbcType=DATE})
+		</foreach>
+  </insert>
+</mapper>

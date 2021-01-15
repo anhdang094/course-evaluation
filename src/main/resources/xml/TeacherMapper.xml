@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="thanhtuu.springmvc.Dao.TeacherMapper">
+  <resultMap id="BaseResultMap" type="thanhtuu.springmvc.Domain.Teacher">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="faculty" jdbcType="VARCHAR" property="faculty" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, faculty, position
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Long">
+    delete from teacher
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="thanhtuu.springmvc.Domain.Teacher">
+    insert into teacher (id, name, faculty, 
+      position)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{faculty,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="thanhtuu.springmvc.Domain.Teacher">
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="faculty != null">
+        faculty,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="faculty != null">
+        #{faculty,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="thanhtuu.springmvc.Domain.Teacher">
+    update teacher
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="faculty != null">
+        faculty = #{faculty,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Teacher">
+    update teacher
+    set name = #{name,jdbcType=VARCHAR},
+      faculty = #{faculty,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getAllTeacher" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+	from teacher
+  </select>
+  <select id="getInList" resultMap="BaseResultMap" parameterType="list">
+  	select
+  	<include refid="Base_Column_List" />
+	from teacher
+	where id in
+	<foreach item="item" collection="list"
+             open="(" separator="," close=")">
+        #{item}
+    </foreach>
+  </select>
+  
+  
+  
+   <select id="getTeacherById" parameterType="Long" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List"/>
+  from teacher
+  where Id = #{Id,jdbcType=INTEGER}
+  
+  </select>
+</mapper>

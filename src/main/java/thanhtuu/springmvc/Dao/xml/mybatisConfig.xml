@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+     
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="MANAGED">
+                <property name="closeConnection" value="true" />
+            </transactionManager>
+            <dataSource type="JNDI">
+                <property name="data_source" value="java:comp/env/jdbc/db_evaluation2" />
+            </dataSource>
+        </environment>
+    </environments>
+       
+    <mappers>
+        <mapper resource="AdminMapper.xml"/>
+        <mapper resource="AnswersMapper.xml"/>
+        <mapper resource="ChaptersMapper.xml"/>
+        <mapper resource="ExamMapper.xml"/>
+        <mapper resource="ExamsMapper.xml"/>
+        <mapper resource="Question_BlocksMapper.xml"/>
+        <mapper resource="Questions_ChaptersMapper.xml"/>
+        <mapper resource="Questions_TargetMapper.xml"/>
+        <mapper resource="QuestionsMapper.xml"/>
+        <mapper resource="SeeMapper.xml"/>
+        <mapper resource="StudentMapper.xml"/>
+        <mapper resource="SubjectsMapper.xml"/>
+        <mapper resource="TargetMapper.xml"/>
+        <mapper resource="TeacherMapper.xml"/>
+        <mapper resource="TestMapper.xml"/>
+        <mapper resource="UsersMapper.xml"/>
+        <mapper resource="Teacher_SubjectMapper.xml"/>
+    </mappers>
+</configuration>

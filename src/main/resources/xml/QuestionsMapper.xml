@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="thanhtuu.springmvc.Dao.QuestionsMapper">
+  <resultMap id="BaseResultMap" type="thanhtuu.springmvc.Domain.Questions">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="questionBlockId" jdbcType="INTEGER" property="questionblockid" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="chapterId" jdbcType="INTEGER" property="chapterid" />
+    <result column="subjectId" jdbcType="INTEGER" property="subjectid" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, questionBlockId, level, chapterId, subjectId
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.QuestionsKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from questions
+    where id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.QuestionsKey">
+    delete from questions
+    where id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="thanhtuu.springmvc.Domain.Questions">
+    insert into questions (id, questionBlockId, level, 
+      chapterId, subjectId, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{questionblockid,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{chapterid,jdbcType=INTEGER}, #{subjectid,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="thanhtuu.springmvc.Domain.Questions"
+  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    insert into questions
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="questionblockid != null">
+        questionBlockId,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="chapterid != null">
+        chapterId,
+      </if>
+      <if test="subjectid != null">
+        subjectId,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="questionblockid != null">
+        #{questionblockid,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="chapterid != null">
+        #{chapterid,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null">
+        #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="thanhtuu.springmvc.Domain.Questions">
+    update questions
+    <set>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="chapterid != null">
+        chapterId = #{chapterid,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null">
+        subjectId = #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="thanhtuu.springmvc.Domain.Questions">
+    update questions
+    set level = #{level,jdbcType=INTEGER},
+      chapterId = #{chapterid,jdbcType=INTEGER},
+      subjectId = #{subjectid,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Questions">
+    update questions
+    set level = #{level,jdbcType=INTEGER},
+      chapterId = #{chapterid,jdbcType=INTEGER},
+      subjectId = #{subjectid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+      and questionBlockId = #{questionblockid,jdbcType=INTEGER}
+  </update>
+
+  <select id="checkMaxIdQuestion" resultType="long">
+    select max(id)
+    from questions
+  </select>
+  
+  <select id="getQuestionL1CountByChapterId" resultType="long">
+    select count(*)
+    from questions
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+    and level = 1
+  </select>
+  
+  <select id="getQuestionL2CountByChapterId" resultType="long">
+    select count(*)
+    from questions
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+    and level = 2
+  </select>
+  
+  <select id="getQuestionL3CountByChapterId" resultType="long">
+    select count(*)
+    from questions
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+    and level = 3
+  </select>
+  
+  <select id="getQuestionL4CountByChapterId" resultType="long">
+    select count(*)
+    from questions
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+    and level = 4
+  </select>
+  
+  <select id="getQuestionL5CountByChapterId" resultType="long">
+    select count(*)
+    from questions
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+    and level = 5
+  </select>
+  
+  <select id="getL1BySubjectIdChapterId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+    from questions
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+    and subjectId = #{subjectId,jdbcType=INTEGER}
+    and level = 1
+  </select>
+  
+  <select id="getL2BySubjectIdChapterId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+    from questions
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+    and subjectId = #{subjectId,jdbcType=INTEGER}
+    and level = 2
+  </select>
+  
+  <select id="getL3BySubjectIdChapterId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+    from questions
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+    and subjectId = #{subjectId,jdbcType=INTEGER}
+    and level = 3
+  </select>
+  
+  <select id="getL4BySubjectIdChapterId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+    from questions
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+    and subjectId = #{subjectId,jdbcType=INTEGER}
+    and level = 4
+  </select>
+  
+  <select id="getL5BySubjectIdChapterId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+    from questions
+    where chapterId = #{chapterId,jdbcType=INTEGER}
+    and subjectId = #{subjectId,jdbcType=INTEGER}
+    and level = 5
+  </select>
+  
+  <select id="getQuestionByBlockQuestionIdList" parameterType="list" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+	from questions
+	where questionBlockId in
+	<foreach close=")" collection="list" item="item" open="(" separator=",">
+        #{item}
+    </foreach>
+  </select>
+  
+   <select id="getBySubjectIdChapterIdLevel" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+	from questions
+	where 
+	<if test="subjectId != 0">
+        subjectId =  #{subjectId,jdbcType=INTEGER}
+    </if>
+	<if test="chapterId != 0">
+        and chapterId = #{chapterId,jdbcType=INTEGER}
+    </if>
+	<if test="level == 1">
+        and level = 1
+    </if>
+    <if test="level == 2">
+        and level = 2
+    </if>
+    <if test="level == 3">
+        and level = 3
+    </if>
+    <if test="level == 4">
+        and level = 4
+    </if>
+    <if test="level == 5">
+        and level = 5
+    </if>
+  </select>
+  
+  <select id="getQuestionOfBlockQuestionByRootExam" parameterType="list" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+	from questions
+	where questionBlockId in
+	<foreach close=")" collection="list" item="item" open="(" separator=",">
+        #{item}
+    </foreach>
+  </select>
+  
+  <select id="getQuestionIDByBlockQuestion" parameterType="long" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+	from questions
+	where questionBlockId = #{questionBlockId,jdbcType=INTEGER}
+  </select>
+  
+   <select id="getQuestionID" parameterType="long" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+	from questions
+	  where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- <select id="getListQuestionId" parameterType="list" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />,
+  	<include refid="Blob_Column_List" />
+	from questions
+	where id in
+	<foreach close=")" collection="list" item="item" open="(" separator=",">
+        #{item}
+    </foreach>
+  </select> -->
+</mapper>

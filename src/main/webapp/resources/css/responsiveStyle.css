@@ -1,0 +1,109 @@
+@media ( min-width : 967px) and (max-width: 1080px) {
+	#imagelogo img {
+		padding: 0px 0px 0px 20px;
+		width: 60px;
+		height: 40px;
+	}
+	#customer_header .navbar-brand {
+		font-family: "Times New Roman", Georgia, Serif;
+		font-size: 16px;
+		color: #ff8346;
+		font-weight: bold;
+		text-align: center;
+	}
+	#header_menu {
+		background-color: #006fa4;
+		border: 0px solid;
+		font-size: 10px;
+		border-top-right-radius: 2em;
+		border-top-left-radius: 2em;
+		border-bottom-left-radius: 2em;
+		border-bottom-right-radius: 2em;
+		height: auto;
+		margin-top: 10px;
+	}
+	#icon_user img {
+		border-radius: 50px;
+		color: #5bc0de;
+		width: 20px;
+		height: 20px;
+	}
+}
+
+@media ( min-width : 842px) and (max-width: 966px) {
+	#imagelogo img {
+		padding: 0px 20px 0px 20px;
+		width: 80px;
+		height: 30px;
+	}
+	#customer_header .navbar-brand {
+		font-family: "Times New Roman", Georgia, Serif;
+		font-size: 16px;
+		color: #ff8346;
+		font-weight: bold;
+		text-align: center;
+	}
+	#header_menu {
+		background-color: #006fa4;
+		border: 0px solid;
+		font-size: 8px;
+		border-top-right-radius: 2em;
+		border-top-left-radius: 2em;
+		border-bottom-left-radius: 2em;
+		border-bottom-right-radius: 2em;
+		height: auto;
+		margin-top: 10px;
+	}
+	#icon_user img {
+		border-radius: 50px;
+		color: #5bc0de;
+		width: 20px;
+		height: 20px;
+	}
+}
+
+@media ( min-width : 810px) and (max-width: 841px) {
+	#imagelogo img {
+		padding: 0px 20px 0px 20px;
+		width: 80px;
+		height: 30px;
+	}
+	#icon_user img {
+		display: none;
+	}
+	#customer_header .navbar-brand {
+		font-family: "Times New Roman", Georgia, Serif;
+		font-size: 16px;
+		color: #ff8346;
+		font-weight: bold;
+		text-align: center;
+	}
+	#header_menu {
+		background-color: #006fa4;
+		border: 0px solid;
+		font-size: 8px;
+		border-top-right-radius: 2em;
+		border-top-left-radius: 2em;
+		border-bottom-left-radius: 2em;
+		border-bottom-right-radius: 2em;
+		height: auto;
+		margin-top: 10px;
+	}
+}
+
+@media ( max-width : 809px) {
+	#customer_header .navbar-brand {
+		font-family: "Times New Roman", Georgia, Serif;
+		font-size: 16px;
+		color: #ff8346;
+		font-weight: bold;
+		text-align: center;
+		margin :center;
+	}
+	#imagelogo img {
+		display: none;
+	}
+	
+	
+	
+}

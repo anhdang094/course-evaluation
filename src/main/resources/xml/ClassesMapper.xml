@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="thanhtuu.springmvc.Dao.ClassesMapper">
+  <resultMap id="BaseResultMap" type="thanhtuu.springmvc.Domain.Classes">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="subjectId" jdbcType="INTEGER" property="subjectid" />
+    <result column="teacherId" jdbcType="INTEGER" property="teacherid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="isOpen" jdbcType="BIT" property="isopen" />
+    <result column="modifiedAt" jdbcType="DATE" property="modifiedat" />
+    <result column="createdAt" jdbcType="DATE" property="createdat" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, subjectId, teacherId, name, isOpen, modifiedAt, createdAt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from classes
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="Long">
+    delete from classes
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="thanhtuu.springmvc.Domain.Classes">
+    insert into classes (id, subjectId, teacherId, 
+      name, isOpen, modifiedAt, 
+      createdAt)
+    values (#{id,jdbcType=INTEGER}, #{subjectid,jdbcType=INTEGER}, #{teacherid,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{isopen,jdbcType=BIT}, #{modifiedat,jdbcType=DATE}, 
+      #{createdat,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="thanhtuu.springmvc.Domain.Classes">
+    insert into classes
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="subjectid != null">
+        subjectId,
+      </if>
+      <if test="teacherid != null">
+        teacherId,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="isopen != null">
+        isOpen,
+      </if>
+      <if test="modifiedat != null">
+        modifiedAt,
+      </if>
+      <if test="createdat != null">
+        createdAt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null">
+        #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null">
+        #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isopen != null">
+        #{isopen,jdbcType=BIT},
+      </if>
+      <if test="modifiedat != null">
+        #{modifiedat,jdbcType=DATE},
+      </if>
+      <if test="createdat != null">
+        #{createdat,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="thanhtuu.springmvc.Domain.Classes">
+    update classes
+    <set>
+      <if test="subjectid != null">
+        subjectId = #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null">
+        teacherId = #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isopen != null">
+        isOpen = #{isopen,jdbcType=BIT},
+      </if>
+      <if test="modifiedat != null">
+        modifiedAt = #{modifiedat,jdbcType=DATE},
+      </if>
+      <if test="createdat != null">
+        createdAt = #{createdat,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Classes">
+    update classes
+    set subjectId = #{subjectid,jdbcType=INTEGER},
+      teacherId = #{teacherid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      isOpen = #{isopen,jdbcType=BIT},
+      modifiedAt = #{modifiedat,jdbcType=DATE},
+      createdAt = #{createdat,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getClassOfTeacher" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from classes
+    where teacherId = #{userId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getClassInList" resultMap="BaseResultMap" parameterType="list">
+  	select
+  	<include refid="Base_Column_List" />
+	from classes
+	where id in
+	<foreach item="item" collection="list"
+             open="(" separator="," close=")">
+        #{item}
+    </foreach>
+  </select>
+  
+  <select id="getBySubjectId" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from classes
+    where subjectId = #{subjectId,jdbcType=INTEGER}
+    and teacherId = #{teacherId,jdbcType=INTEGER}
+  </select>
+</mapper>

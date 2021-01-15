@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="thanhtuu.springmvc.Dao.Classes_ExamsMapper" >
+  <resultMap id="BaseResultMap" type="thanhtuu.springmvc.Domain.Classes_Exams" >
+    <id column="classId" property="classid" jdbcType="INTEGER" />
+    <id column="examsId" property="examsid" jdbcType="INTEGER" />
+    <result column="modifiedAt" property="modifiedat" jdbcType="DATE" />
+    <result column="createdAt" property="createdat" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    classId, examsId, modifiedAt, createdAt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="thanhtuu.springmvc.Domain.Classes_ExamsKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from classes_exams 
+    where classId = #{classid,jdbcType=INTEGER}
+      and examsId = #{examsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Classes_ExamsKey" >
+    delete from classes_exams
+    where classId = #{classid,jdbcType=INTEGER}
+      and examsId = #{examsid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="thanhtuu.springmvc.Domain.Classes_Exams" >
+    insert into classes_exams (classId, examsId, modifiedAt, 
+      createdAt)
+    values (#{classid,jdbcType=INTEGER}, #{examsid,jdbcType=INTEGER}, #{modifiedat,jdbcType=DATE}, 
+      #{createdat,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="thanhtuu.springmvc.Domain.Classes_Exams" >
+    insert into classes_exams
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classid != null" >
+        classId,
+      </if>
+      <if test="examsid != null" >
+        examsId,
+      </if>
+      <if test="modifiedat != null" >
+        modifiedAt,
+      </if>
+      <if test="createdat != null" >
+        createdAt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classid != null" >
+        #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="examsid != null" >
+        #{examsid,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedat != null" >
+        #{modifiedat,jdbcType=DATE},
+      </if>
+      <if test="createdat != null" >
+        #{createdat,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="thanhtuu.springmvc.Domain.Classes_Exams" >
+    update classes_exams
+    <set >
+      <if test="modifiedat != null" >
+        modifiedAt = #{modifiedat,jdbcType=DATE},
+      </if>
+      <if test="createdat != null" >
+        createdAt = #{createdat,jdbcType=DATE},
+      </if>
+    </set>
+    where classId = #{classid,jdbcType=INTEGER}
+      and examsId = #{examsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Classes_Exams" >
+    update classes_exams
+    set modifiedAt = #{modifiedat,jdbcType=DATE},
+      createdAt = #{createdat,jdbcType=DATE}
+    where classId = #{classid,jdbcType=INTEGER}
+      and examsId = #{examsid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getClassExamsByExamsId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from classes_exams
+    where examsId = #{examsId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getExamsCountByClassId" resultType="long">
+    select count(*)
+    from classes_exams
+    where classId = #{classId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getByClassId" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from classes_exams
+    where classId = #{classId,jdbcType=INTEGER}
+  </select>
+</mapper>

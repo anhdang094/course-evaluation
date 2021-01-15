@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="thanhtuu.springmvc.Dao.Class_MemberMapper">
+  <resultMap id="BaseResultMap" type="thanhtuu.springmvc.Domain.Class_Member">
+    <id column="classId" jdbcType="INTEGER" property="classid" />
+    <id column="studentId" jdbcType="INTEGER" property="studentid" />
+    <id column="subjectId" jdbcType="INTEGER" property="subjectid" />
+    <result column="isActive" jdbcType="BOOLEAN" property="isactive" />
+    <result column="modifiedAt" jdbcType="DATE" property="modifiedat" />
+    <result column="createdAt" jdbcType="DATE" property="createdat" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    classId, studentId, subjectId, modifiedAt, createdAt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Class_MemberKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from class_member
+    where classId = #{classid,jdbcType=INTEGER}
+      and studentId = #{studentid,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Class_MemberKey">
+    delete from class_member
+    where classId = #{classid,jdbcType=INTEGER}
+      and studentId = #{studentid,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="thanhtuu.springmvc.Domain.Class_Member">
+    insert into class_member (classId, studentId, subjectId, isActive,
+      modifiedAt, createdAt)
+    values (#{classid,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{subjectid,jdbcType=INTEGER}, #{isactive,jdbcType=BOOLEAN}, 
+      #{modifiedat,jdbcType=DATE}, #{createdat,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="thanhtuu.springmvc.Domain.Class_Member">
+    insert into class_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classid != null">
+        classId,
+      </if>
+      <if test="studentid != null">
+        studentId,
+      </if>
+      <if test="subjectid != null">
+        subjectId,
+      </if>
+      <if test="isactive != null">
+        isActive,
+      </if>
+      <if test="modifiedat != null">
+        modifiedAt,
+      </if>
+      <if test="createdat != null">
+        createdAt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classid != null">
+        #{classid,jdbcType=INTEGER},
+      </if>
+      <if test="studentid != null">
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null">
+        #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="isactive != null">
+        #{isactive,jdbcType=BOOLEAN},
+      </if>
+      <if test="modifiedat != null">
+        #{modifiedat,jdbcType=DATE},
+      </if>
+      <if test="createdat != null">
+        #{createdat,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="thanhtuu.springmvc.Domain.Class_Member">
+    update class_member
+    <set>
+      <if test="isactive != null">
+        isActive = #{isactive,jdbcType=BOOLEAN},
+      </if>
+      <if test="modifiedat != null">
+        modifiedAt = #{modifiedat,jdbcType=DATE},
+      </if>
+      <if test="createdat != null">
+        createdAt = #{createdat,jdbcType=DATE},
+      </if>
+    </set>
+    where classId = #{classid,jdbcType=INTEGER}
+      and studentId = #{studentid,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Class_Member">
+    update class_member
+    set isActive = #{isactive,jdbcType=BOOLEAN}, 
+      modifiedAt = #{modifiedat,jdbcType=DATE},
+      createdAt = #{createdat,jdbcType=DATE}
+    where classId = #{classid,jdbcType=INTEGER}
+      and studentId = #{studentid,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getStudentOfClass" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from class_member
+    where classId = #{classId,jdbcType=INTEGER}
+    and isActive = true;
+  </select>
+  
+  <select id="getClassOfStudent" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from class_member
+    where studentId = #{studentId,jdbcType=INTEGER}
+    and isActive = true;
+  </select>
+  
+  <select id="getClassMemberList" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from class_member
+    where studentId = #{studentId,jdbcType=INTEGER}
+    and isActive = true
+    and classId in
+	<foreach item="item" collection="list"
+             open="(" separator="," close=")">
+        #{item}
+    </foreach>
+    limit 1
+  </select>
+  
+  <select id="getStudentCountByClassId" resultType="long">
+    select count(*)
+    from class_member
+    where classId = #{classId,jdbcType=INTEGER}
+    and isActive = true
+  </select>
+  
+  <update id="removeBySubjectId" parameterType="thanhtuu.springmvc.Domain.Class_Member">
+    update class_member
+    <set>
+      isActive = false,
+      <if test="modifiedat != null">
+        modifiedAt = #{modifiedat,jdbcType=DATE},
+      </if>
+    </set>
+    where  studentId = #{studentid,jdbcType=INTEGER}
+      and subjectId = #{subjectid,jdbcType=INTEGER}
+  </update>
+  
+  <update id="removeByClassId" parameterType="thanhtuu.springmvc.Domain.Class_Member">
+    update class_member
+    <set>
+      isActive = false,
+      <if test="modifiedat != null">
+        modifiedAt = #{modifiedat,jdbcType=DATE},
+      </if>
+    </set>
+    where  studentId = #{studentid,jdbcType=INTEGER}
+      and classId = #{classid,jdbcType=INTEGER}
+  </update>
+</mapper>

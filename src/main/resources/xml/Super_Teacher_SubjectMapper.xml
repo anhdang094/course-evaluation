@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="thanhtuu.springmvc.Dao.Super_Teacher_SubjectMapper">
+  <resultMap id="BaseResultMap" type="thanhtuu.springmvc.Domain.Super_Teacher_Subject">
+    <id column="subjectId" jdbcType="INTEGER" property="subjectid" />
+    <id column="teacherId" jdbcType="INTEGER" property="teacherid" />
+    <result column="adminId" jdbcType="INTEGER" property="adminid" />
+    <result column="isActive" jdbcType="BOOLEAN" property="isactive" />
+    <result column="modifiedAt" jdbcType="DATE" property="modifiedat" />
+    <result column="createdAt" jdbcType="DATE" property="createdat" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    subjectId, teacherId, adminId, modifiedAt, createdAt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Super_Teacher_SubjectKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from super_teacher_subject 
+    where subjectId = #{subjectid,jdbcType=INTEGER}
+      and teacherId = #{teacherid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Super_Teacher_SubjectKey">
+    delete from super_teacher_subject
+    where subjectId = #{subjectid,jdbcType=INTEGER}
+      and teacherId = #{teacherid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="thanhtuu.springmvc.Domain.Super_Teacher_Subject">
+    insert into super_teacher_subject (subjectId, teacherId, adminId, isActive
+      modifiedAt, createdAt)
+    values (#{subjectid,jdbcType=INTEGER}, #{teacherid,jdbcType=INTEGER}, #{adminid,jdbcType=INTEGER}, #{isactive,jdbcType=BOOLEAN}, 
+      #{modifiedat,jdbcType=DATE}, #{createdat,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="thanhtuu.springmvc.Domain.Super_Teacher_Subject">
+    insert into super_teacher_subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="subjectid != null">
+        subjectId,
+      </if>
+      <if test="teacherid != null">
+        teacherId,
+      </if>
+      <if test="adminid != null">
+        adminId,
+      </if>
+      <if test="isactive != null">
+        isActive,
+      </if>
+      <if test="modifiedat != null">
+        modifiedAt,
+      </if>
+      <if test="createdat != null">
+        createdAt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="subjectid != null">
+        #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null">
+        #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="adminid != null">
+        #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="isactive != null">
+        #{isactive,jdbcType=BOOLEAN},
+      </if>
+      <if test="modifiedat != null">
+        #{modifiedat,jdbcType=DATE},
+      </if>
+      <if test="createdat != null">
+        #{createdat,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="thanhtuu.springmvc.Domain.Super_Teacher_Subject">
+    update super_teacher_subject
+    <set>
+      <if test="adminid != null">
+        adminId = #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="isactive != null">
+        isActive = #{isactive,jdbcType=BOOLEAN},
+      </if>
+      <if test="modifiedat != null">
+        modifiedAt = #{modifiedat,jdbcType=DATE},
+      </if>
+      <if test="createdat != null">
+        createdAt = #{createdat,jdbcType=DATE},
+      </if>
+    </set>
+    where subjectId = #{subjectid,jdbcType=INTEGER}
+      and teacherId = #{teacherid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="thanhtuu.springmvc.Domain.Super_Teacher_Subject">
+    update super_teacher_subject
+    set adminId = #{adminid,jdbcType=INTEGER},
+      isActive = #{isactive,jdbcType=BOOLEAN},
+      modifiedAt = #{modifiedat,jdbcType=DATE},
+      createdAt = #{createdat,jdbcType=DATE}
+    where subjectId = #{subjectid,jdbcType=INTEGER}
+      and teacherId = #{teacherid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="isSuperTeacherOfSubject" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from super_teacher_subject
+    where subjectId = #{subjectId,jdbcType=INTEGER} AND teacherId = #{teacherId,jdbcType=INTEGER} AND isActive = true
+  </select>
+  
+  <select id="getByTeacherId" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from super_teacher_subject
+    where teacherId = #{teacherId,jdbcType=INTEGER} and isActive = true
+  </select>
+  
+  <select id="getBySubjectId" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from super_teacher_subject
+    where subjectId = #{subjectId,jdbcType=INTEGER} and isActive = true
+  </select>
+</mapper>
